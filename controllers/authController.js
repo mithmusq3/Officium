@@ -1,16 +1,28 @@
-const User = require('../models/User')
-const Admin = require('../models/Admin')
+const User = require('../models/User');
+const Admin = require('../models/Admin');
+const jwt = require('jsonwebtoken'); 
  
 
 //Handle Errors function
     
     handleErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { email: '', password: '' };
+    let errors = { name:'', email: '', number: '', password: '' };
+
+    // incorrect email
+    if (err.message === 'incorrect email') {
+        errors.email = 'That email is not registered';
+    }
+
+    // incorrect password
+    if (err.message === 'incorrect password') {
+        errors.password = 'That password is incorrect';
+    }
+
     
     // duplicate email error
     if (err.code === 11000) {
-        errors.email = 'that email is already registered';
+        errors.email = 'This email is already registered';
         return errors;
     }
     
@@ -28,6 +40,19 @@ const Admin = require('../models/Admin')
     }
 
 
+// Create Tokens 
+
+ const maxAge = 3 * 24 * 60 * 60 ;
+ // in seconds - 3 days
+
+ const createToken = (id) => {
+      return jwt.sign({ id }, 'WingardiumLeviosa',{
+        expiresIn:maxAge
+      });
+      // first argument is payload of jwt, second is used to create a signature for jwt along with
+      //payload and hashed , third argument is a options argument 
+      // here we can set the expires property 
+ }
 
  // GET FUNCTIONS
 
@@ -66,11 +91,16 @@ const Admin = require('../models/Admin')
     
         //Signup Post function
         module.exports.signup_post = async (req,res) => {
-        const { email , password } = req.body;
+        const { name, email, gender, birthday, number, password } = req.body;
         
         try{
-                const user = await User.create({ email , password });
-                res.status(201).json(user);
+                const user = await User.create({ name, email, gender, birthday, number, password });
+                //create a jwt
+                const token = createToken(user._id);
+                //place the jwt into a cookie and send it as response 
+                res.cookie('jwt',token, { httpOnly:true, maxAge:maxAge*1000 } );
+                res.status(201).json({user:user._id});
+
         }
         catch (err){
             const errors = handleErrors(err);
@@ -81,8 +111,18 @@ const Admin = require('../models/Admin')
         //Login post function
         module.exports.login_post = async (req,res) => {
         const { email , password } = req.body;
-        console.log(email,password);
-        res.send('user login');
+         
+        try {
+            const user = await User.login( email , password );
+            //create a jwt
+            const token = createToken(user._id);
+            //place the jwt into a cookie and send it as response 
+            res.cookie('jwt',token, { httpOnly:true, maxAge:maxAge*1000 } );
+            res.status(200).json({user:user._id});
+        } catch (err) {
+            const errors = handleErrors(err);
+            res.status(400).json({errors});
+        }
         }
 
     
@@ -90,11 +130,16 @@ const Admin = require('../models/Admin')
 
         //Admin Signup post function
         module.exports.adm_signup_post = async (req,res) => {
-            const { email , password } = req.body;
+            const { name, email, number, password } = req.body;
             
             try{
-                const admin = await Admin.create({ email , password });
-                res.status(201).json(admin);
+                const admin = await Admin.create({ name, email, number, password });
+
+                //create a jwt
+                const admintoken = createToken(admin._id);
+                //place the jwt into a cookie and send it as response 
+                res.cookie('jwtadmin',admintoken, { httpOnly:true, maxAge:maxAge*1000 } );
+                res.status(201).json({admin:admin._id});
             }
             catch (err){
                 const errors = handleErrors(err);
@@ -104,7 +149,31 @@ const Admin = require('../models/Admin')
         
         //Admin Login post function
         module.exports.adm_login_post = async (req,res) => {
-            const { email , password } = req.body;
-            console.log(email,password);
-            res.send('admin login');
+
+        const {  email,  password } = req.body;
+         
+        try {
+            const admin = await Admin.login(  email, password );
+            //create a jwt
+            const token = createToken(admin._id);
+            //place the jwt into a cookie and send it as response 
+            res.cookie('jwtadmin',token, { httpOnly:true, maxAge:maxAge*1000 } );
+            res.status(200).json({admin:admin._id});
+        } catch (err) {
+            const errors = handleErrors(err);
+            res.status(400).json({errors});
+        }
+        }
+
+
+        //Logout
+        module.exports.logout_get = async (req,res) => {
+            res.cookie('jwt','', { maxAge: 1 } );
+            res.redirect('/');
+        }
+
+        //Logout Admin
+        module.exports.logoutadmin_get = async (req,res) => {
+            res.cookie('jwtadmin','', { maxAge: 1 } );
+            res.redirect('/admin');
         }
