@@ -79,7 +79,7 @@
 		});
 
 		const data = await res.json();
-		console.log()
+		console.log();
 		if(data.errors){
 				emailError.textContent = data.errors.email + '  ';
 				emailError.textContent += data.errors.name;

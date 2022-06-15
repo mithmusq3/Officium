@@ -158,6 +158,7 @@ const jwt = require('jsonwebtoken');
             const token = createToken(admin._id);
             //place the jwt into a cookie and send it as response 
             res.cookie('jwtadmin',token, { httpOnly:true, maxAge:maxAge*1000 } );
+            res.locals.admin_id=admin._id;
             res.status(200).json({admin:admin._id});
         } catch (err) {
             const errors = handleErrors(err);

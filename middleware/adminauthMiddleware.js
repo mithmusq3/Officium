@@ -11,7 +11,7 @@ const requireadminAuth = (req, res, next) => {
         console.log(err.message);
         res.redirect('/admin'); 
       } else {
-        console.log(decodedToken);
+        // console.log(decodedToken);
         next();
       }
     });

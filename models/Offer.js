@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const offerSchema = new Schema({
-  title: {
+const offerSchema = new mongoose.Schema({
+  company: {
+    type: String,
+    required: true
+  },
+  tittle: {
     type: String,
     required: true,
   },
@@ -13,6 +16,9 @@ const offerSchema = new Schema({
   description: {
     type: String,
     required: true
+  },
+  adminid: {
+    type: mongoose.Schema.Types.ObjectId
   }
 }, { timestamps: true });
 
