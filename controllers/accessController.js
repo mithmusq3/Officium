@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Admin = require('../models/Admin');
 const Offer = require('../models/Offer');
+const Relation = require('../models/Relation')
 const jwt = require('jsonwebtoken');
 
  // GET FUNCTIONS
@@ -94,3 +95,64 @@ const jwt = require('jsonwebtoken');
         } 
 
       }
+
+// Delete descrip 
+
+module.exports.descrip_delete = async (req, res) => {
+  const id = req.params.id;
+  Offer.findByIdAndDelete(id)
+    .then(result => {
+      res.json({ redirect: '/adminpage' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+// User description 
+
+    module.exports.userdescrip_get = (req,res) => {
+      const id = req.params.id;
+      console.log(id);
+      Offer.findById(id)
+        .then(result => {
+            const adminid =result.adminid;
+            const value=0;
+              Admin.findById(adminid).then( postadmin => {
+                          Relation.find().sort({ createdAt: -1 })
+                          .then(relations => {
+                              res.render('userdescrip', { value:value,offer:result,relations: relations, title: 'Description',postadmin:postadmin });
+                          })
+                          .catch(err => {
+                            console.log(err);
+                          }); 
+              }).catch(err =>{
+                console.log(err);
+              })
+        })
+        .catch(err => {
+          console.log(err);
+          res.render('404', { title: 'Error' });
+        });   
+    }
+
+
+// User Description POST 
+
+
+
+module.exports.userdescrip_post = async (req,res) => {
+    
+   const { postadminid, offerid, userid } = req.body; 
+
+  try{
+          const relation = await Relation.create({ postadminid, offerid, userid });
+
+          res.status(201).json({relat:relation._id});
+
+  }
+  catch (err){
+      const errors = handleErrors(err);
+      res.status(400).json({ errors });
+  }
+  }

@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="/styles.css">
         <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
 
-    </head>
+    </head> 
     <header id="header">
       <img src="/images/logo2.png" alt="" style="height: 50px;">
       <div class="head-element" style="width:7%;text-align: center;">Officium</div> 
@@ -31,16 +31,20 @@
         </div>
 
         <div class="container">
-            <% if (offers.length > 0) { %>
-                <% offers.forEach(offer => { %>
-                  <div class="arrange">
-                    <h2> <%= offer.company %> </h2>
-                    <h4 class="tittle"> Job Title:  <%= offer.tittle %></h4>
-                    <h4 class="tittle"> Type:  <%= offer.type %></h4>
-                    <p class="description"> <pre> <%= offer.description %> </pre> </p>
-                  </div>
-                <% }) %>
-              <% } %>
+          <% if (offers.length > 0) { %>
+            <% offers.forEach(offer => { %>
+              <a href="/user/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+             
+              <div class="arrange">
+                <h2> <%= offer.company %> </h2>
+                <h4 class="tittle"> Job Title:  <%= offer.tittle %></h4>
+                <h4 class="tittle"> Type:  <%= offer.type %></h4>
+                <p class="description"><%= offer.description %></p>
+              </div>
+            </a>
+
+            <% }) %>
+          <% } %>
         </div>
 
         <div id="Header2" style="margin-top:30px;">
