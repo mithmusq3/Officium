@@ -2,7 +2,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>MITHILESH K</title>
+        <title><%= tittle %></title>
         <link rel="stylesheet" href="/styles.css">
         <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
 
@@ -26,9 +26,21 @@
             </div>
         </div>
         
-        <div id="Header1">
+        
+        <% if (resumes.length > 0) { %>
+          <% resumes.forEach(resume => { %>
+                 <% if (user._id.equals(resume.userid)) { %>
+                      <% condval = 1 %>
+                      <% } %>
+            <% }) %>
+          <% } %>
 
-        </div>
+
+          <div id="Header1">
+
+          </div>
+          
+      <% if(condval == 1) {%>
 
         <div class="container">
           <% if (offers.length > 0) { %>
@@ -53,6 +65,7 @@
 
         <div class="container2">
             <div>1</div>
+            <div> <%= condval %></div>
             <div>2</div>
             <div>3</div>
             <div>4</div>
@@ -64,7 +77,18 @@
         <span>
             <!-- <h2>Jobs Available</h2> -->
         </span>
-        
-        
+
+        <% } else { %>
+  
+        <form action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data" >
+          <input class="choose-file-btn" type="file" name="resume" />
+          <input class="upload-btn" type="submit" value="Upload Resume" />    
+        </form>
+
+        <!-- <form action="/download/<%= user._id %>" method="GET">
+          <input class="upload-btn" type="submit" value="Download" />    
+        </form> -->
+
+        <% } %>
     </body>
-</html>
+</html> 

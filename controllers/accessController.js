@@ -1,8 +1,11 @@
 const User = require('../models/User');
 const Admin = require('../models/Admin');
 const Offer = require('../models/Offer');
-const Relation = require('../models/Relation')
+const Relation = require('../models/Relation');
+const Resume = require('../models/Resume');
 const jwt = require('jsonwebtoken');
+const mongodb = require('mongodb');
+const binary = mongodb.Binary;
 
  // GET FUNCTIONS
 
@@ -13,7 +16,13 @@ const jwt = require('jsonwebtoken');
         module.exports.dashboard_get = (req,res) => {
             Offer.find().sort({ createdAt: -1 })
           .then(result => {
-            res.render('dashboard', { offers: result, title: 'Dashboard' });
+             Resume.find().sort({createdAt: -1}).then(
+              resume =>{
+                res.render('dashboard', { offers: result,resumes:resume, tittle: 'Dashboard' });
+              }
+             ).catch(err => {
+              console.log(err);
+             });
           })
           .catch(err => {
             console.log(err);
@@ -27,7 +36,13 @@ const jwt = require('jsonwebtoken');
 
           Offer.find().sort({ createdAt: -1 })
           .then(result => {
-            res.render('adminpage', { offers: result, title: 'Admin Dashboard' });
+                Relation.find().sort({ createdAt: -1 })
+                .then(relations => {
+                     res.render('adminpage', { relations:relations,offers: result, title: 'Admin Dashboard' });
+                })
+                .catch(err => {
+                  console.log(err);
+                }); 
           })
           .catch(err => {
             console.log(err);
@@ -143,10 +158,10 @@ module.exports.descrip_delete = async (req, res) => {
 
 module.exports.userdescrip_post = async (req,res) => {
     
-   const { postadminid, offerid, userid } = req.body; 
+   const { postadminid, offerid, userid, username } = req.body; 
 
   try{
-          const relation = await Relation.create({ postadminid, offerid, userid });
+          const relation = await Relation.create({ postadminid, offerid, userid, username });
 
           res.status(201).json({relat:relation._id});
 
@@ -156,3 +171,8 @@ module.exports.userdescrip_post = async (req,res) => {
       res.status(400).json({ errors });
   }
   }
+
+
+
+
+  

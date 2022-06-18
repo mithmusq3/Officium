@@ -18,7 +18,7 @@
         </div>
     </header>
     <body id="descrip_body">
-          
+          <span id="nameofuser" data-doc="<%= user.name %>"></span>
 
         <div class="descrip">
            <div class="arrange">
@@ -47,7 +47,7 @@
             <form >
                 <button style="border-radius: 20px;border: 1px solid #E5E1D5;background-color: #DE9576;color: #FFFFFF;
                 font-size: 12px;font-weight: bold;padding: 12px 45px;letter-spacing: 1px;text-transform: uppercase;
-                transition: transform 80ms ease-in;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);cursor: pointer;"  data-doc="/user/<%= offer._id %>" class="applybutton" >
+                transition: transform 80ms ease-in;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);cursor: pointer;"  data-doc="/user/<%= offer._id %>" id="newbutton" class="applybutton" >
                 Apply</button>
             </form>
             <% } %>
@@ -62,10 +62,12 @@
 
     <script>
       const form = document.querySelector('form');
-      const applybutton= document.getElementsByClassName('applybutton');
+      const applybutton= document.getElementById('newbutton');
       const arrangeh2= document.getElementById('arrangeh2');
       const postadmin= document.getElementById('postadmin');
       const user= document.getElementById('user');
+      const usern= document.getElementById('nameofuser');
+
 
 
       form.addEventListener('submit',async (e)=>{
@@ -74,12 +76,14 @@
       const offerid= arrangeh2.dataset.doc;
       const postadminid= postadmin.dataset.doc;
       const userid= user.dataset.doc;
+      const username= usern.dataset.doc;
 
-      console.log( postadminid, offerid , userid );
+
+      console.log( postadminid, offerid , userid , username,'yayyyyy');
       try {
         const res = await fetch(pathofapply,{
           method: 'POST',
-          body: JSON.stringify({  postadminid, offerid, userid }),
+          body: JSON.stringify({  postadminid, offerid, userid, username }),
 
           headers: { 'Content-Type':'application/json' }
         });

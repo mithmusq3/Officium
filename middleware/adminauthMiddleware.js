@@ -21,6 +21,25 @@ const requireadminAuth = (req, res, next) => {
 };
 
 
+const requireAuthId = (req, res, next) => {
+  const token = req.cookies.jwtadmin;
+
+  // check json web token exists & is verified
+  if (token) {
+    jwt.verify(token, 'WingardiumLeviosa', (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.redirect('/dashboard'); 
+      } else {
+        // console.log(decodedToken);
+        next();
+      }
+    });
+  } else {
+    res.redirect('/dashboard');
+  }
+};
+
 // check current admin
 const checkAdmin = (req, res, next) => {
   const token = req.cookies.jwtadmin;
@@ -41,4 +60,4 @@ const checkAdmin = (req, res, next) => {
   }
 };
 
-module.exports = { requireadminAuth , checkAdmin };
+module.exports = { requireAuthId, requireadminAuth , checkAdmin };

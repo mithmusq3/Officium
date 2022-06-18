@@ -10,6 +10,9 @@ const relationSchema = new mongoose.Schema({
   },
   userid: {
     type: mongoose.Schema.Types.ObjectId
+  },
+  username: {
+    type: String
   }
 }, { timestamps: true });
 

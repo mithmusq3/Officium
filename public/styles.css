@@ -46,7 +46,7 @@ body{
     border-radius: 0px 5px 5px 0px;
 }
 
-#Header1 ,#Header2{
+#Header1 ,#Header2, #Header3{
     height:65px;
     background-color:#F8F5EC;
     margin-left:4%;
@@ -178,4 +178,8 @@ margin-right: 30px;
    align-items: center;
    margin: auto;
    margin-block-end: 1em;
+  }
+
+  .appliedheader{
+    margin: 10px 5px;
   }
