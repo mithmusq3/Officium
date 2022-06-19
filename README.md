@@ -3,7 +3,7 @@
 ## Getting started
 
 Download and Install Node JS and Mongo DB
-You could either connect the Mongo DB locally Or you can use the commented out dbURI to connet with database)
+You could either connect the Mongo DB locally Or you can use the commented out dbURI to connect with Mongo DB Atlas)
 
 To get the code:
 
