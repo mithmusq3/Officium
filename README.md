@@ -29,9 +29,9 @@ Then open your browser and enter the following address:
 
  For User:
 
-    > http://localhost:7000/
+       http://localhost:7000/
     
 For Admin:
 
-    > http://localhost:7000/admin
+      http://localhost:7000/admin
     
