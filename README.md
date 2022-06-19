@@ -5,11 +5,6 @@
 Download and Install Node JS and Mongo DB
 You could either connect the Mongo DB locally Or you can use the commented out dbURI to connect with Mongo DB Atlas)
 
-To get the code:
-
-```
-git clone https://github.com/mithmusq3/Officium
-```
 
 To install all the dependencies required:
 
