@@ -12,8 +12,6 @@ To install all the dependencies required:
 npm install
 ```
 
-(PS: I have uploaded all the dependencies required in the main branch )
-
 To get the Server running :
 
 ```
