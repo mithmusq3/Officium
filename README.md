@@ -9,6 +9,7 @@ You could either connect the Mongo DB locally Or you can use the commented out d
 To install all the dependencies required:
 
 ```
+npm update
 npm install
 ```
 
