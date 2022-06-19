@@ -27,7 +27,7 @@ const adminSchema = new mongoose.Schema({
      password: {
          type: String,
          required: [true,'Please enter a Password'],
-         minlength: [6,'Minimun password length is 6 characters']
+         minlength: [8,'Minimun password length is 8 characters']
      }
 
 }, { timestamps: true });
@@ -56,9 +56,9 @@ const adminSchema = new mongoose.Schema({
                 if(auth){
                     return admin;
                 }
-                throw Error('Incorrect password');
+                throw Error('incorrect password');
         }
-        throw Error('Incorrect email');
+        throw Error('incorrect email');
 
     }
 

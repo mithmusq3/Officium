@@ -4,8 +4,6 @@ const Offer = require('../models/Offer');
 const Relation = require('../models/Relation');
 const Resume = require('../models/Resume');
 const jwt = require('jsonwebtoken');
-const mongodb = require('mongodb');
-const binary = mongodb.Binary;
 
  // GET FUNCTIONS
 
@@ -18,7 +16,11 @@ const binary = mongodb.Binary;
           .then(result => {
              Resume.find().sort({createdAt: -1}).then(
               resume =>{
-                res.render('dashboard', { offers: result,resumes:resume, tittle: 'Dashboard' });
+                Relation.find().sort({createdAt: -1}).then( relations =>{
+                  res.render('dashboard', { offers: result,resumes:resume, tittle: 'Dashboard',relations:relations });
+                }).catch(err =>{
+                  console.log(err);
+                });
               }
              ).catch(err => {
               console.log(err);
@@ -117,7 +119,11 @@ module.exports.descrip_delete = async (req, res) => {
   const id = req.params.id;
   Offer.findByIdAndDelete(id)
     .then(result => {
-      res.json({ redirect: '/adminpage' });
+      Relation.deleteMany({offerid:id}).then(response =>{
+        res.json({ redirect: '/adminpage' });
+      }).catch(err =>{
+        console.log(err);
+      });
     })
     .catch(err => {
       console.log(err);

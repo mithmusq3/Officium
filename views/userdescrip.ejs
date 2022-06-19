@@ -19,14 +19,14 @@
     </header>
     <body id="descrip_body">
           <span id="nameofuser" data-doc="<%= user.name %>"></span>
-
+           
         <div class="descrip">
            <div class="arrange">
             <h2 id="arrangeh2" data-doc='<%= offer._id %>'>
                <%= offer.company %> </h2>
             <h4 class="tittle" id="arrangeh4_1"> Job Title:  <%= offer.tittle %></h4>
             <h4 class="tittle" id="arrangeh4_2"> Type:  <%= offer.type %></h4>
-            <p id="descrip_"><%= offer.description %></p>
+            <p id="descrip_" style="white-space: pre-wrap;"><%= offer.description %></p>
             <h4 id="postadmin" data-doc='<%= postadmin.id %>'> 
               Posted by: <%= postadmin.name %>
             </h4>

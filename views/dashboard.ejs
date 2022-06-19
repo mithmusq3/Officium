@@ -35,12 +35,12 @@
             <% }) %>
           <% } %>
 
+          <% if(condval == 1) {%>
 
-          <div id="Header1">
-
+          <div id="Header1" style="display: flex; justify-content:flex-start;">
+               <h1 style="text-align: center;margin-left:50px;">Offers</h1>
           </div>
           
-      <% if(condval == 1) {%>
 
         <div class="container">
           <% if (offers.length > 0) { %>
@@ -53,42 +53,65 @@
                 <h4 class="tittle"> Type:  <%= offer.type %></h4>
                 <p class="description"><%= offer.description %></p>
               </div>
+              <% checkvalue =1 %>
+
             </a>
 
             <% }) %>
           <% } %>
+          <% if(checkvalue == 0) { %>
+            <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+            </span>
+            <% } %>
+        </div>
+  <% checkvalue =0 %>
+
+          <div id="Header2" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+            <h2 style="text-align: center;margin-left:50px;">Applied Jobs</h2>
         </div>
 
-        <div id="Header2" style="margin-top:30px;">
-
+        <div class="container">
+          <% if (relations.length> 0) { %>
+            <% relations.forEach(relation=> { %>
+              <% if (user._id.equals(relation.userid)) { %>
+                <% offers.forEach(offer => { %>
+                  <% if (offer._id.equals(relation.offerid)) { %>
+                    <a href="/user/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+             
+                      <div class="arrange">
+                        <h2> <%= offer.company %> </h2>
+                        <h4 class="tittle"> Job Title:  <%= offer.tittle %></h4>
+                        <h4 class="tittle"> Type:  <%= offer.type %></h4>
+                        <p class="description"><%= offer.description %></p>
+                      </div>
+              <% checkvalue =1 %>
+                    </a>
+                    <% } %>
+            <% }) %>
+            <% } %>
+           <% }) %>
+             <% } %>
+             <% if(checkvalue == 0) { %>
+              <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+              </span>
+              <% } %>
         </div>
-
-        <div class="container2">
-            <div>1</div>
-            <div> <%= condval %></div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-        </div>
-
-        <span>
-            <!-- <h2>Jobs Available</h2> -->
-        </span>
+  <% checkvalue =0 %>
 
         <% } else { %>
   
-        <form action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data" >
-          <input class="choose-file-btn" type="file" name="resume" />
-          <input class="upload-btn" type="submit" value="Upload Resume" />    
-        </form>
-
-        <!-- <form action="/download/<%= user._id %>" method="GET">
-          <input class="upload-btn" type="submit" value="Download" />    
-        </form> -->
-
+          <div class="container3"> 
+            <div>
+            <form class="formupload"action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data" >
+              <h3>Upload RESUME</h3>
+              <input class="choose-file-btn" style="text-align: center;" type="file" name="resume" />
+              <input class="upload-btn" style="cursor: pointer;" type="submit" value="Submit" />    
+            </form>
+          </div>
+          
+          </div>
         <% } %>
+       
+        
     </body>
 </html> 

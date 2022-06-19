@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload');
 const mongoDB = require('mongodb');
 const Resume = require('./models/Resume');
 const Offer = require('./models/Offer');
+const Relation = require('./models/Relation');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const fs = require('fs');
 
@@ -84,7 +85,11 @@ app.use(express.static('public'));
       .then(result => {
         Resume.find().sort({createdAt: -1}).then(
           resume =>{
-            res.render('dashboard', { offers: result,resumes:resume, tittle: 'Dashboard' });
+            Relation.find().sort({createdAt: -1}).then( relations =>{
+              res.render('dashboard', { offers: result,resumes:resume, tittle: 'Dashboard',relations:relations });
+            }).catch(err =>{
+              console.log(err);
+            });
           }
          ).catch(err => {
           console.log(err);

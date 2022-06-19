@@ -32,9 +32,9 @@
     </div>
   </div>
 
-  <div id="Header1">
-
-  </div>
+  <div id="Header1" style="display: flex; justify-content:flex-start;">
+    <h1 style="text-align: center;margin-left:50px;">Offers</h1>
+</div>
 
   <div class="container">
     <% if (offers.length> 0) { %>
@@ -60,10 +60,9 @@
   </div>
 
 
-  <div id="Header2" style="margin-top:30px;">
-
-  </div>
-
+  <div id="Header2" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+    <h2 style="text-align: center;margin-left:50px;">Applied Users</h2>
+</div>
   <div class="container2">
     <% if (relations.length> 0) { %>
       <% relations.forEach(rela=> { %>
@@ -81,6 +80,7 @@
                   <h5 class="appliedheader"> Job Title: <%= offer.tittle %> </h5>
                   <h5 class="appliedheader"> Job Type: <%= offer.type %> </h5>
                 </div>
+                <% checkvalue =1 %>
               </a>
               <% } %>
                 <% }) %>
@@ -90,10 +90,15 @@
 
                     <% }) %>
                       <% } %>
+                      <% if(checkvalue == 0) { %>
+                        <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+                        </span>
+                        <% } %>
   </div>
-  <div id="Header3" style="margin-top:30px;">
-
-  </div>
+  <% checkvalue =0 %>
+  <div id="Header3" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+    <h2 style="text-align: center;margin-left:50px;">Your Offers</h2>
+</div>
   <div class="container">
     <% if (offers.length> 0) { %>
       <% offers.forEach(offer=> { %>
@@ -112,17 +117,16 @@
                 <%= offer.description %>
               </p>
             </div>
+            <% checkvalue =1 %>
           </a>
     <% } %>
     <% }) %>
       <% } %>
+      <% if(checkvalue == 0) { %>
+        <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+        </span>
+        <% } %>
   </div>
-
-  <span>
-    <!-- <h2>Jobs Available</h2> -->
-  </span>
-
-
 </body>
 
 </html>

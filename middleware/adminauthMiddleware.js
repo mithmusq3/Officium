@@ -51,6 +51,7 @@ const checkAdmin = (req, res, next) => {
       } else {
         let admin = await Admin.findById(decodedToken.id);
         res.locals.admin = admin;
+        res.locals.checkvalue=0;
         next();
       }
     });
