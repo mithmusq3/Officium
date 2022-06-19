@@ -53,18 +53,18 @@
                 <h4 class="tittle"> Type:  <%= offer.type %></h4>
                 <p class="description"><%= offer.description %></p>
               </div>
-              <% checkvalue =1 %>
+              <% condval =1 %>
 
             </a>
 
             <% }) %>
           <% } %>
-          <% if(checkvalue == 0) { %>
+          <% if(condval == 0) { %>
             <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
             </span>
             <% } %>
         </div>
-  <% checkvalue =0 %>
+  <% condval =0 %>
 
           <div id="Header2" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
             <h2 style="text-align: center;margin-left:50px;">Applied Jobs</h2>
@@ -84,27 +84,28 @@
                         <h4 class="tittle"> Type:  <%= offer.type %></h4>
                         <p class="description"><%= offer.description %></p>
                       </div>
-              <% checkvalue =1 %>
+              <% condval =1 %>
                     </a>
                     <% } %>
             <% }) %>
             <% } %>
            <% }) %>
              <% } %>
-             <% if(checkvalue == 0) { %>
+             <% if(condval == 0) { %>
               <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
               </span>
               <% } %>
         </div>
-  <% checkvalue =0 %>
+  <% condval =0 %>
 
         <% } else { %>
   
           <div class="container3"> 
             <div>
-            <form class="formupload"action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data" >
+            <form class="formupload"action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data"  >
               <h3>Upload RESUME</h3>
-              <input class="choose-file-btn" style="text-align: center;" type="file" name="resume" />
+              <h5>  (in PDF format)</h5>
+              <input class="choose-file-btn" style="text-align: center;" type="file" name="resume" accept="application/pdf"/>
               <input class="upload-btn" style="cursor: pointer;" type="submit" value="Submit" />    
             </form>
           </div>
