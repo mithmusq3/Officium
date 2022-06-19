@@ -10,6 +10,8 @@ To install all the dependencies required:
 
 ```
 npm update
+```
+```
 npm install
 ```
 
