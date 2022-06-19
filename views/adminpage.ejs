@@ -1,0 +1,132 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>MITHILESH K</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<header id="header">
+  <img src="/images/logo2.png" alt="" style="height: 50px;">
+  <div class="head-element" style="width:7%;text-align: center;">Officium</div>
+  <div style="justify-content:space-between;width:80%;"></div>
+  <div class="head-element" style="width:7%;text-align: center;"><a href="/adminpage"
+      style="color: black;text-decoration: none;">Home</a></div>
+  <div class="head-element" style="width:10%;text-align: center;"><a href="/newoffer"
+      style="color: black;text-decoration: none;">Create Offer</a></div>
+  <div class="head-element" style="width:7%;text-align: center;"><a href="/logoutadmin"
+      style="color: black;text-decoration: none;">Logout</a></div>
+  <div class="head-element" style="width:10%;text-align: center;">
+    <%= admin.name %>
+  </div>
+</header>
+
+<body>
+  <div id="attractive_cont">
+    <div id="landing-cont-left">
+
+    </div>
+    <img src="/images/off.jpg" alt="" id="main-pic" width="40%">
+    <div id="landing-cont-right" style="flex-basis:100%">
+
+    </div>
+  </div>
+
+  <div id="Header1" style="display: flex; justify-content:flex-start;">
+    <h1 style="text-align: center;margin-left:50px;">Offers</h1>
+</div>
+
+  <div class="container">
+    <% if (offers.length> 0) { %>
+      <% offers.forEach(offer=> { %>
+        <a href="/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+
+          <div class="arrange">
+            <h2>
+              <%= offer.company %>
+            </h2>
+            <h4 class="tittle"> Job Title: <%= offer.tittle %>
+            </h4>
+            <h4 class="tittle"> Type: <%= offer.type %>
+            </h4>
+            <p class="description">
+              <%= offer.description %>
+            </p>
+          </div>
+        </a>
+
+        <% }) %>
+          <% } %>
+  </div>
+
+
+  <div id="Header2" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+    <h2 style="text-align: center;margin-left:50px;">Applied Users</h2>
+</div>
+  <div class="container2">
+    <% if (relations.length> 0) { %>
+      <% relations.forEach(rela=> { %>
+        <% if (admin._id.equals(rela.postadminid)) { %>
+
+
+          <% offers.forEach(offer=> { %>
+            <% if (offer._id.equals(rela.offerid)) { %>
+
+              <a href="/download/<%= rela.userid %>" style="cursor: pointer;text-decoration: none;color:black">
+
+                <div class="arrange" >
+                  <h3> Applied by:  </h3>
+                  <h5 style="margin:10px"> <%= rela.username %> </h5>
+                  <h5 class="appliedheader"> Job Title: <%= offer.tittle %> </h5>
+                  <h5 class="appliedheader"> Job Type: <%= offer.type %> </h5>
+                </div>
+                <% checkvalue =1 %>
+              </a>
+              <% } %>
+                <% }) %>
+
+
+                  <% } %>
+
+                    <% }) %>
+                      <% } %>
+                      <% if(checkvalue == 0) { %>
+                        <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+                        </span>
+                        <% } %>
+  </div>
+  <% checkvalue =0 %>
+  <div id="Header3" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+    <h2 style="text-align: center;margin-left:50px;">Your Offers</h2>
+</div>
+  <div class="container">
+    <% if (offers.length> 0) { %>
+      <% offers.forEach(offer=> { %>
+        <% if (admin._id.equals(offer.adminid)) { %>
+          <a href="/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+
+            <div class="arrange">
+              <h2>
+                <%= offer.company %>
+              </h2>
+              <h4 class="tittle"> Job Title: <%= offer.tittle %>
+              </h4>
+              <h4 class="tittle"> Type: <%= offer.type %>
+              </h4>
+              <p class="description">
+                <%= offer.description %>
+              </p>
+            </div>
+            <% checkvalue =1 %>
+          </a>
+    <% } %>
+    <% }) %>
+      <% } %>
+      <% if(checkvalue == 0) { %>
+        <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+        </span>
+        <% } %>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/login_signup.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login Form Using HTML And CSS Only</title>
+</head>
+<body>
+	<div class="container" id="container">
+		<div class="form-container  log-in-container">
+			<form action="/dum" method="POST" enctype="multipart/form-data">
+				<h1>Dummy</h1>	
+                <input type="file" name="uploadedFile" required >
+                <input type="text" name="filename" placeholder="File Name" />
+                <input type="submit" value="Upload File" />
+			</form>
+		</div>
+		<form action="/download" method="GET">
+			<input type="submit" value="Download File" />
+		</form>
+		
+	</div>
+</body>
+
+</html>

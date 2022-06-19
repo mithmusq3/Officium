@@ -1,0 +1,117 @@
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title><%= tittle %></title>
+        <link rel="stylesheet" href="/styles.css">
+        <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
+
+    </head> 
+    <header id="header">
+      <img src="/images/logo2.png" alt="" style="height: 50px;">
+      <div class="head-element" style="width:7%;text-align: center;">Officium</div> 
+      <div style="justify-content:space-between;width:80%;"></div>  
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/dashboard" style="color: black;text-decoration: none;">Home</a></div>
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/logout" style="color: black;text-decoration: none;">Logout</a></div>
+      <div class="head-element" style="width:10%;text-align: center;" > <%= user.name  %></div>
+    </header>
+    <body>
+        <div id="attractive_cont">
+            <div id="landing-cont-left" >
+
+            </div>
+            <img src="/images/off.jpg" alt="" id="main-pic" width="40%">
+            <div id="landing-cont-right" style="flex-basis:100%">
+
+            </div>
+        </div>
+        
+        
+        <% if (resumes.length > 0) { %>
+          <% resumes.forEach(resume => { %>
+                 <% if (user._id.equals(resume.userid)) { %>
+                      <% condval = 1 %>
+                      <% } %>
+            <% }) %>
+          <% } %>
+
+          <% if(condval == 1) {%>
+
+          <div id="Header1" style="display: flex; justify-content:flex-start;">
+               <h1 style="text-align: center;margin-left:50px;">Offers</h1>
+          </div>
+          
+
+        <div class="container">
+          <% if (offers.length > 0) { %>
+            <% offers.forEach(offer => { %>
+              <a href="/user/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+             
+              <div class="arrange">
+                <h2> <%= offer.company %> </h2>
+                <h4 class="tittle"> Job Title:  <%= offer.tittle %></h4>
+                <h4 class="tittle"> Type:  <%= offer.type %></h4>
+                <p class="description"><%= offer.description %></p>
+              </div>
+              <% checkvalue =1 %>
+
+            </a>
+
+            <% }) %>
+          <% } %>
+          <% if(checkvalue == 0) { %>
+            <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+            </span>
+            <% } %>
+        </div>
+  <% checkvalue =0 %>
+
+          <div id="Header2" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
+            <h2 style="text-align: center;margin-left:50px;">Applied Jobs</h2>
+        </div>
+
+        <div class="container">
+          <% if (relations.length> 0) { %>
+            <% relations.forEach(relation=> { %>
+              <% if (user._id.equals(relation.userid)) { %>
+                <% offers.forEach(offer => { %>
+                  <% if (offer._id.equals(relation.offerid)) { %>
+                    <a href="/user/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+             
+                      <div class="arrange">
+                        <h2> <%= offer.company %> </h2>
+                        <h4 class="tittle"> Job Title:  <%= offer.tittle %></h4>
+                        <h4 class="tittle"> Type:  <%= offer.type %></h4>
+                        <p class="description"><%= offer.description %></p>
+                      </div>
+              <% checkvalue =1 %>
+                    </a>
+                    <% } %>
+            <% }) %>
+            <% } %>
+           <% }) %>
+             <% } %>
+             <% if(checkvalue == 0) { %>
+              <span style="margin-top:20px;min-height:100px;width: 90%;border-radius: 5px;">
+              </span>
+              <% } %>
+        </div>
+  <% checkvalue =0 %>
+
+        <% } else { %>
+  
+          <div class="container3"> 
+            <div>
+            <form class="formupload"action="/upload/<%= user._id %>" method="POST" enctype="multipart/form-data" >
+              <h3>Upload RESUME</h3>
+              <input class="choose-file-btn" style="text-align: center;" type="file" name="resume" />
+              <input class="upload-btn" style="cursor: pointer;" type="submit" value="Submit" />    
+            </form>
+          </div>
+          
+          </div>
+        <% } %>
+       
+        
+    </body>
+</html> 
