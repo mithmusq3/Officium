@@ -10,7 +10,7 @@ const router = Router();
 // router.use('/',checkUser);
 // router.use('/signup',checkUser);
 
-
+    
 router.get('/',checkUser,authController.login_get);
 router.get('/signup',checkUser,authController.signup_get);
 router.post('/signup',authController.signup_post);

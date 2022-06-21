@@ -7,7 +7,9 @@ const fileUpload = require('express-fileupload');
 const mongoDB = require('mongodb');
 const Resume = require('./models/Resume');
 const Offer = require('./models/Offer');
+const User = require('./models/User');
 const Relation = require('./models/Relation');
+const momentjs = require('moment');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const fs = require('fs');
 
@@ -59,7 +61,6 @@ app.use(express.static('public'));
     Resume.findOne({userid:idofuser}).then(resume =>{
       let buffer = resume.data;
       fs.writeFileSync('./uploads/resume.pdf', buffer);
-      console.log('you got here ');
         res.set({
           "Content-Type": "application/pdf",
           "Content-Disposition": "attachment"
@@ -71,6 +72,8 @@ app.use(express.static('public'));
     })
       
   });
+  
+
 
   app.post('/upload/:id',requireAuth, checkUser,async (req,res)=>{
     const user_id = req.params.id;
@@ -105,6 +108,34 @@ app.use(express.static('public'));
       
   
   });
+
+app.post('/updateuserresume/:id', requireAuth, checkUser,async (req,res)=>{
+  const user_id = req.params.id;
+    const userid = objectid(user_id);
+    const path = 'userprofile';
+    const contenttype = req.files.resume.mimetype;
+    try {
+    let file = { userid: userid, data:binary(req.files.resume.data),  contenttype: contenttype};
+    // console.log(file);
+    const resume = await Resume.findOneAndUpdate({userid:userid},file);
+    console.log('Resume Updated');  
+    User.findById(userid)
+    .then(result => {
+      var bday = momentjs(result.birthday).format('YYYY-MM-DD');
+      res.render(path, { user:result, title: 'Profile',bday:bday });
+                      })
+    .catch(err => {
+      console.log(err);
+      res.render('404', { title: 'Error' });
+    });  
+    } catch (err) {
+      
+      console.log(err);
+    }
+    
+
+});    
+
 
 
 

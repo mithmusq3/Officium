@@ -213,6 +213,55 @@ module.exports.userdescrip_post = async (req,res) => {
     }
 
 
+    // Update Profile of an User From User Page
+
+    module.exports.updateprofile_get = (req,res) => {
+      const id = req.params.id;
+      User.findById(id)
+        .then(result => {
+          var bday = momentjs(result.birthday).format('YYYY-MM-DD');
+          res.render('updateprofile', { user:result, title: 'Profile',bday:bday });
+                          })
+        .catch(err => {
+          console.log(err);
+          res.render('404', { title: 'Error' });
+        });   
+    }
+
+
+    // Update Resume of an User From User Page
+
+    module.exports.updateresume_get = (req,res) => {
+      const id = req.params.id;
+      User.findById(id)
+        .then(result => {
+          var bday = momentjs(result.birthday).format('YYYY-MM-DD');
+          res.render('updateresume', { user:result, title: 'Update Resume',bday:bday });
+                          })
+        .catch(err => {
+          console.log(err);
+          res.render('404', { title: 'Error' });
+        });   
+    }
+
+    // updateprofile_post
+    module.exports.updateprofile_post = async (req,res) => {
+      const { name, email, gender, birthday, number, userid } = req.body;
+      
+      try{
+              const user = await User.findByIdAndUpdate(userid,{ name:name, email:email, gender:gender, birthday:birthday, number:number });
+              //create a jwt
+              //place the jwt into a cookie and send it as response 
+              res.status(201).json({user:user._id});
+
+      }
+      catch (err){
+          const errors = handleErrors(err);
+          res.status(400).json({ errors });
+      }
+      }
+
+
 
 
 

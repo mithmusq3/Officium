@@ -2,7 +2,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title><%= title %></title>
+        <title>MITHILESH K</title>
         <link rel="stylesheet" href="/profile.css">
         <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
 
@@ -24,17 +24,18 @@
             <div class="profilecontainer">
 			<div class="email error"></div>
 			<div class="password error"></div>
-            <h2><%=  user.name %>  Profile</h2>
+            <h2><%= user.name %>   Profile</h2>
                 <div  style="min-width: 400px;">
                     <div>
+                    <form action="">
                       <table  style="width:auto;">
                         <tr class="rowsoftable" style="height: 30px;">
-                          <th width="50%"> Name</th>
+                          <th width="50%">User Name</th>
                           <td width="4%">:</td>
                           <td><%=  user.name %></td>
                         </tr>
                         <tr class="rowsoftable" style="height: 30px;">
-                          <th width="50%">Email	</th>
+                          <th width="50%">User Email	</th>
                           <td width="4%">:</td>
                           <td><%=  user.email %></td>
                         </tr>
@@ -54,8 +55,16 @@
                           <td><%=  user.number %></td>
                         </tr>
                       </table>
+                    </form>
+                    <div class="buttontype"> <a href="/download/<%= user._id %>" style="text-decoration: none;color:white;">  My Resume </a></div>
+                     
                     </div>
                   </div>
+                  <div id="imagepos">
+                    <a class="delete" href="../updateprofile/<%= user._id %>">
+                    <img src="/images/editbutton.svg" alt="delete icon">
+                  </a>
+                   </div>
 
                 </div>
         </div>
@@ -64,3 +73,4 @@
     </body>
 
 </html>
+
