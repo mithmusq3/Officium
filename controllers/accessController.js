@@ -4,6 +4,7 @@ const Offer = require('../models/Offer');
 const Relation = require('../models/Relation');
 const Resume = require('../models/Resume');
 const jwt = require('jsonwebtoken');
+const momentjs = require('moment');
 
  // GET FUNCTIONS
 
@@ -177,6 +178,40 @@ module.exports.userdescrip_post = async (req,res) => {
       res.status(400).json({ errors });
   }
   }
+
+
+
+  // Profile of an User From Admin Page
+
+  module.exports.profile_get = (req,res) => {
+    const id = req.params.id;
+    User.findById(id)
+      .then(result => {
+        var bday = momentjs(result.birthday).format('YYYY-MM-DD');
+   res.render('profile', { user:result, title: 'Profile',bday:bday });
+                        })
+      .catch(err => {
+        console.log(err);
+        res.render('404', { title: 'Error' });
+      });   
+  }
+
+
+    // Profile of an User From User Page
+
+    module.exports.userprofile_get = (req,res) => {
+      const id = req.params.id;
+      User.findById(id)
+        .then(result => {
+          var bday = momentjs(result.birthday).format('YYYY-MM-DD');
+     res.render('userprofile', { user:result, title: 'Profile',bday:bday });
+                          })
+        .catch(err => {
+          console.log(err);
+          res.render('404', { title: 'Error' });
+        });   
+    }
+
 
 
 

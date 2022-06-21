@@ -1,0 +1,66 @@
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/profile.css">
+        <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
+
+    </head>
+    <header id="header">
+      <img src="/images/logo2.png" alt="" style="height: 50px;">
+      <div class="head-element" style="width:7%;text-align: center;">Officium</div> 
+      <div style="justify-content:space-between;width:80%;"></div>  
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/dashboard" style="color: black;text-decoration: none;">Home</a></div>
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/logout" style="color: black;text-decoration: none;">Logout</a></div>
+      <div class="head-element" style="width:10%;text-align: center;" > 
+        <%= user.name %>
+    </div>
+    </header>
+    <body >
+          
+        
+        <div class="descrip">
+            <div class="profilecontainer">
+			<div class="email error"></div>
+			<div class="password error"></div>
+            <h2><%=  user.name %>  Profile</h2>
+                <div  style="min-width: 400px;">
+                    <div>
+                      <table  style="width:auto;">
+                        <tr class="rowsoftable" style="height: 30px;">
+                          <th width="50%"> Name</th>
+                          <td width="4%">:</td>
+                          <td><%=  user.name %></td>
+                        </tr>
+                        <tr class="rowsoftable" style="height: 30px;">
+                          <th width="50%">Email	</th>
+                          <td width="4%">:</td>
+                          <td><%=  user.email %></td>
+                        </tr>
+                        <tr class="rowsoftable" style="height: 30px;">
+                          <th width="50%">Gender</th>
+                          <td width="4%">:</td>
+                          <td><%=  user.gender %></td>
+                        </tr>
+                        <tr class="rowsoftable" style="height: 50px;">
+                          <th width="50%">Date of Birth</th>
+                          <td width="4%">:</td>
+                          <td><%=  bday %></td>
+                        </tr>
+                        <tr  class="rowsoftable" style="height: 30px;">
+                          <th width="50%">Contact </th>
+                          <td width="4%">:</td>
+                          <td><%=  user.number %></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+        </div>
+        
+        
+    </body>
+
+</html>
