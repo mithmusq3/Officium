@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>MITHILESH K</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<header id="header">
+    <img src="/images/logo2.png" alt="" style="height: 50px;">
+    <div class="head-element" style="width:7%;text-align: center;">Officium</div>
+    <div style="justify-content:space-between;width:80%;"></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadmin"
+            style="color: black;text-decoration: none;">Home</a></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/logoutadmin"
+            style="color: black;text-decoration: none;">Logout</a></div>
+    <div class="head-element" style="width:12%;text-align: center;margin-right: 5px;">
+        <h3>Super Admin</h3>
+    </div>
+</header>
+
+<div
+    style="padding-bottom:30px;background-color: #DE9576;margin-top: 120px;margin-left: 4%;margin-right: 4%; border-radius: 5px 5px 5px 5px;background-color: #F8F5EC;">
+    <div style="height:30px;"></div>
+    <% if (users.length> 0) { %>
+        <% users.forEach(user=> { %>
+            <a href="/profile/<%= user._id %>" style="cursor: pointer;text-decoration: none;color: black;">
+                <div class="idcollection" style="display:flex;flex-direction:column;justify-content:space-evenly;">
+                    <div style="display:flex; flex-direction:row;justify-content: space-evenly;">
+                        <span>
+                            <ui>User Name: <%= user.name %>
+                            </ui>
+                        </span>
+                        <span>
+                            <ui>User Email: <%= user.email %>
+                            </ui>
+                        </span>
+                        <span>
+                            <ui>User Gender: <%= user.gender %>
+                            </ui>
+                        </span>
+
+                    </div>
+                    <div style="display:flex; flex-direction:row;justify-content: space-evenly;">
+                        <span>
+                            <ui> <span style="font-weight:bold;"> Number of offers Applied:</span>
+                                <%= user.no_offer %>
+                            </ui>
+                        </span>
+
+                    </div>
+                </div>
+            </a>
+
+            <% }) %>
+                <% } %>
+</div>
+
+</html>

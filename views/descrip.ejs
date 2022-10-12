@@ -1,0 +1,64 @@
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>MITHILESH K</title>
+        <link rel="stylesheet" href="/styles.css">
+        <link rel = "icon" href =  "/images/logo.png"   type = "image/x-icon">
+
+    </head>
+    <header id="header">
+      <img src="/images/logo2.png" alt="" style="height: 50px;">
+      <div class="head-element" style="width:7%;text-align: center;">Officium</div> 
+      <div style="justify-content:space-between;width:80%;"></div>  
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/adminpage" style="color: black;text-decoration: none;">Home</a></div>
+      <div class="head-element" style="width:7%;text-align: center;" ><a href="/logoutadmin" style="color: black;text-decoration: none;">Logout</a></div>
+      <div class="head-element" style="width:10%;text-align: center;" >  <%= admin.name %> </div>
+    </header>
+    <body id="descrip_body">
+          
+
+        <div class="descrip">
+           <div class="arrange">
+            <h2 id="arrangeh2"> <%= offer.company %> </h2>
+            <h4 class="tittle" id="arrangeh4_1"> Job Title:  <%= offer.tittle %></h4>
+            <h4 class="tittle" id="arrangeh4_2"> Type:  <%= offer.type %></h4>
+            <p id="descrip_" style="white-space:pre-wrap"><%= offer.description %></p>
+            <h4> Posted by: <%= postadmin.name %></h4>
+            <h4> Contact: <%= postadmin.number %> </h4>
+              
+              <% if (postadmin._id.equals(admin._id)) { %>
+                  <div id="imagepos">
+                    <a class="delete" data-doc="<%= offer._id %>">
+                    <img src="/images/trashcan.svg" alt="delete icon">
+                  </a>
+                   </div>
+                <% }  %>
+          </div>
+        </div>
+
+        
+        <span>
+            <!-- <h2>Jobs Available</h2> -->
+        </span>
+        
+        
+    </body>
+
+    <script>
+      const trashcan = document.querySelector('a.delete');
+  
+      trashcan.addEventListener('click', (e) => {
+        const endpoint = `/${trashcan.dataset.doc}`;
+  
+        fetch(endpoint, {
+          method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+      });
+      
+    </script>
+
+    </html>

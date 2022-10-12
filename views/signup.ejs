@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/login_signup.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login Form Using HTML And CSS Only</title>
+</head>
+<body>
+	<div class="container" id="container">
+		<div class="form-container log-in-container">
+			<form>
+				
+				<h1>Sign Up</h1>	
+				<input type="text" name="name" required placeholder="Name" />
+				<input type="email" name="email" required placeholder="Email" />
+				<div class="email error"></div>
+				<!-- <input type="text" placeholder="Qualification" /> -->
+				<div class="cont">
+				<label for="gender">Gender</label>
+					<select name="gender">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</select>
+                </div>
+				
+				<div class="cont">
+				    <label for="birthday">Birthday</label>
+				    <input type="date" name="birthday" required id="bday" required >
+				</div>
+
+				<input type="number" name="number" required placeholder="Mobile Number" />
+				<input type="password" name="password" required placeholder="Password" />
+				<div class="password error"></div>
+				<!-- <a href="/" class="sign_up">Register</a> -->
+				<button class="sign_up">Register</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-right">
+					<h1>Officium</h1>
+					<p>SignUp form </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<!-- Add Script to get data from form and send it to the server -->
+<script>
+	const form = document.querySelector('form');
+	const emailError = document.querySelector('.email.error'); 
+	const passwordError = document.querySelector('.password.error'); 
+
+	form.addEventListener('submit',async (e)=>{
+    e.preventDefault();
+
+	//Reset errors
+	emailError.textContent= "";
+	passwordError.textContent="";
+
+	//Get the values 
+	  const name =form.name.value;
+      const email =form.email.value;
+	  const gender = form.gender.value;
+	  const birthday = form.birthday.value;
+      const number =form.number.value;
+	  const password = form.password.value;
+	  const no_offer = 0;
+	//   console.log(name, number);
+	
+	try {
+		const res = await fetch('/signup',{
+			method: 'POST',
+			body: JSON.stringify({ name, email, gender, birthday, number, password ,no_offer}),
+			// actual syntax - body: JSON.stringify({ email:email , password:password }) 
+			// Since both names are the same we use simplified syntax 
+			headers: { 'Content-Type':'application/json' }
+		});
+
+		const data = await res.json();
+		console.log();
+		if(data.errors){
+				emailError.textContent = data.errors.email + '  ';
+				emailError.textContent += data.errors.name;
+				passwordError.textContent = data.errors.password + '  ';
+				passwordError.textContent += data.errors.number;
+		}
+		if(data.user){
+			location.assign('/');
+		}
+	} 
+	catch (err) {
+		console.log(err);
+	}
+
+
+	});
+</script>
+
+</html>

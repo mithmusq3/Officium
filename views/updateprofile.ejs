@@ -1,0 +1,148 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/profile.css">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+
+</head>
+<header id="header">
+  <img src="/images/logo2.png" alt="" style="height: 50px;">
+  <div class="head-element" style="width:7%;text-align: center;">Officium</div>
+  <div style="justify-content:space-between;width:80%;"></div>
+  <div class="head-element" style="width:7%;text-align: center;"><a href="/dashboard"
+      style="color: black;text-decoration: none;">Home</a></div>
+  <div class="head-element" style="width:7%;text-align: center;"><a href="/logout"
+      style="color: black;text-decoration: none;">Logout</a></div>
+  <div class="head-element" id="finduserid"data-doc="<%= user._id %>" style="width:10%;text-align: center;">
+    <a href="/userprofile/<%= user._id %>" style="color: black;text-decoration: none;"><%= user.name %></a>
+  </div>
+</header>
+
+<body>
+
+
+  <div class="descrip">
+    <div class="profilecontainer">
+      <div class="email error"></div>
+      <h2>
+       Profile Update
+      </h2>
+      <form >
+      <div style="min-width: 400px;">
+        <div>
+          <div class="email error">
+          </div>
+          <table style="width:auto;">
+            <tr class="rowsoftable" style="height: 30px;">
+              <th width="50%"> Name</th>
+              <td width="4%">:</td>
+              <td>
+                <input type="text" name="name" required placeholder="Name" value="<%= user.name %>"/>
+
+              </td>
+            </tr>
+            <tr class="rowsoftable" style="height: 30px;">
+              <th width="50%">Email </th>
+              <td width="4%">:</td>
+              <td>
+                
+            <input type="email" name="email" required placeholder="Email" value="<%= user.email %>"/>
+
+              </td>
+            </tr>
+            <tr class="rowsoftable" style="height: 30px;">
+              <th width="50%">Gender</th>
+              <td width="4%">:</td>
+              <td>
+              <select name="gender" value="<%= user.gender %>">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+                
+              </td>
+            </tr>
+            <tr class="rowsoftable" style="height: 50px;">
+              <th width="50%">Date of Birth</th>
+              <td width="4%">:</td>
+              <td>
+                <input type="date" name="birthday" required id="bday" value="<%= bday %>"> 
+              </td>
+            </tr>
+            <tr class="rowsoftable" style="height: 30px;">
+              <th width="50%">Contact </th>
+              <td width="4%">:</td>
+              <td>
+            <input type="number" name="number" required placeholder="Mobile Number" value="<%= user.number %>" />
+                
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+				<button class="sign_up">Update</button>
+
+      </form>
+
+    </div>
+
+    <div class="profilecontainer" style="margin-top:8px;">
+      <a href="/updateresume/<%= user._id %>" style="text-decoration: none;"> <h4 class="buttontype"> Update My Resume
+      </h4> </a>
+    </div>
+  </div>
+
+
+</body>
+
+<script>
+	const form = document.querySelector('form');
+	const emailError = document.querySelector('.email.error'); 
+
+	form.addEventListener('submit',async (e)=>{
+    e.preventDefault();
+
+	//Reset errors
+	emailError.textContent= "";
+
+	//Get the values 
+	  const name =form.name.value;
+      const email =form.email.value;
+	  const gender = form.gender.value;
+	  const birthday = form.birthday.value;
+      const number =form.number.value;
+      const idofuser= document.getElementById('finduserid');
+      const userid= idofuser.dataset.doc;
+      const path= '/updateprofile/'+userid;
+	//   console.log(name, number);
+	
+	try {
+		const res = await fetch(path,{
+			method: 'POST',
+			body: JSON.stringify({ name, email, gender, birthday, number, userid }),
+			headers: { 'Content-Type':'application/json' }
+		});
+
+		const data = await res.json();
+		console.log();
+		if(data.errors){
+				emailError.textContent = data.errors.email + '  ';
+				emailError.textContent += data.errors.name;
+		}
+		if(data.user){
+			location.assign('/userprofile/<%= user._id %>');
+		}
+	} 
+	catch (err) {
+		console.log(err);
+	}
+
+
+	});
+</script>
+
+</html>
