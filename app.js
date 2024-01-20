@@ -21,18 +21,17 @@ const bodyParser =require('body-parser');
 
 // const morgan = require('morgan');
 const mongoose = require('mongoose');
-const PORT=7000;
 
 
 //Connecting to DB
-// const dbURI ='mongodb+srv://mithu:mithu1234@nodetuts.zr3yi.mongodb.net/?retryWrites=true&w=majority';
-const dbURI = 'mongodb://127.0.0.1:27017'
+const dbURI = process.env.DBURI;
+// const dbURI = 'mongodb://127.0.0.1:27017'
     mongoose.connect(dbURI,{useNewUrlParser: true, useUnifiedTopology: true})
       .then((result)=>{
         console.log("Connected to DB");
         //listen for requests in port 3000 (door no)
-        app.listen(PORT);
-        console.log("Listening to port no: ",PORT);
+        app.listen(process.env.PORT);
+        console.log("Listening to port no: ",process.env.PORT);
     })
       .catch((err)=>{
         console.log(err);

@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>MITHILESH K</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<header id="header">
+    <img src="/images/logo2.png" alt="" style="height: 50px;">
+    <div class="head-element" style="width:7%;text-align: center;">Officium</div>
+    <div style="justify-content:space-between;width:80%;"></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadmindash"
+            style="color: black;text-decoration: none;">Home</a></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadminlogout"
+            style="color: black;text-decoration: none;">Logout</a></div>
+    <div class="head-element" style="width:12%;text-align: center;margin-right: 5px;">
+        <h3>Super Admin</h3>
+    </div>
+</header>
+<div id="Header1" style="display: flex;margin-top: 120px; justify-content:flex-start;">
+    <h1 style="text-align: center;margin-left:50px;">Super Admin Dashboard</h1>
+</div>
+<div
+    style="min-height:60px;background-color: #DE9576;margin-top: 50px;margin-left: 4%;margin-right: 4%; border-radius: 5px 5px 5px 5px;background-color: #F8F5EC;">
+    <div style="display: flex; flex-direction:column;justify-content:space-evenly">
+           <div style="display: flex;flex-direction:row;justify-content: space-evenly;">
+           <% useroffer.forEach(u_offer=>{ %>
+            <h2 >Total Number of Applications: <%=
+                    u_offer.totaloffer %>
+            </h2>
+            <% }) %>
+            <% offercount.forEach(o_count=>{ %>
+                <h2 style="margin-right:25px;">Total Number of Offers: <%=
+                        o_count.count %>
+                </h2>
+                <% }) %>
+            </div>
+            <div style="display: flex;flex-direction:row;justify-content: space-evenly;">
+                <% admincount.forEach(a_count=>{ %>
+                 
+                <h2 >Total Number of Admins: <%=
+                    a_count.count %>
+                 </h2>
+                <% }) %>
+
+                 <% usercount.forEach(u_count=>{ %>
+                     <h2 >Total Number of Users: <%=
+                             u_count.count %>
+                     </h2>
+                <% }) %>
+
+                 </div>
+    </div>
+
+</div>
+
+
+<div class="container4"
+    style="padding-top:50px;background-color: #DE9576;margin-bottom:50px;min-height: 300px;margin-top: 60px;margin-left: 4%;margin-right: 4%; border-radius: 5px 5px 5px 5px;background-color: #F8F5EC;">
+    <a href="/listadmin" style="cursor: pointer;text-decoration: none;color:black">
+
+        <div style="display: flex;flex-direction: column;justify-content: center;">
+
+
+            <span>
+                <h2>List of Admins</h2>
+            </span>
+
+        </div>
+    </a>
+    <a href="/listcompany" style="cursor: pointer;text-decoration: none;color:black">
+        <div style="display: flex;flex-direction: column;justify-content: center;">
+
+            <span>
+                <h2>List of Companies</h2>
+            </span>
+
+        </div>
+    </a>
+
+    <a href="/listuser" style="cursor: pointer;text-decoration: none;color:black">
+        <div style="display: flex;flex-direction: column;justify-content: center;">
+
+            <span>
+                <h2>List of Users</h2>
+            </span>
+
+        </div>
+    </a>
+
+
+
+
+
+</html>

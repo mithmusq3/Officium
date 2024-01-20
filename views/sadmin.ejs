@@ -1,79 +1,76 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>MITHILESH K</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="/login_signup.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login Form Using HTML And CSS Only</title>
 </head>
-<header id="header">
-    <img src="/images/logo2.png" alt="" style="height: 50px;">
-    <div class="head-element" style="width:7%;text-align: center;">Officium</div>
-    <div style="justify-content:space-between;width:80%;"></div>
-    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadmin"
-            style="color: black;text-decoration: none;">Home</a></div>
-    <div class="head-element" style="width:7%;text-align: center;"><a href="/logoutadmin"
-            style="color: black;text-decoration: none;">Logout</a></div>
-    <div class="head-element" style="width:12%;text-align: center;margin-right: 5px;">
-        <h3>Super Admin</h3>
-    </div>
-</header>
-<div
-    style="min-height:60px;background-color: #DE9576;margin-top: 120px;margin-left: 4%;margin-right: 4%; border-radius: 5px 5px 5px 5px;background-color: #F8F5EC;">
-    <% useroffer.forEach(u_offer=>{ %>
-        <h1 style="margin-right:4%;margin-left:4%;">Number of Applications: <%= u_offer.totaloffer %>
-        </h1>
-        <% }) %>
+<body>
+	<div class="container" id="container">
+		<div class="form-container  log-in-container">
+			<form>
+				<h1>Super Admin Login</h1>	
+				<input type="text" name="username" required placeholder="Username" />
+			    <div class="email error"></div>
+			    <div class="password error"></div>
+				<input type="password" name="password" required placeholder="Password" />
+				<button>Log In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-right">
+					<h1>Officium</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 
 
-            <h3></h3>
+<script>
 
-</div>
+	const form = document.querySelector('form');
+	const emailError = document.querySelector('.email.error'); 
+	const passwordError = document.querySelector('.password.error'); 
 
-<div class="container4"
-    style="padding-top:50px;background-color: #DE9576;margin-bottom:50px;min-height: 300px;margin-top: 60px;margin-left: 4%;margin-right: 4%; border-radius: 5px 5px 5px 5px;background-color: #F8F5EC;">
-    <a href="/listadmin" style="cursor: pointer;text-decoration: none;color:black">
-    
-    <div style="display: flex;flex-direction: column;justify-content: center;">
+	form.addEventListener('submit',async (e)=>{
+		e.preventDefault();
+
+		//Reset errors
+		emailError.textContent= "";
+		passwordError.textContent="";
+
+		//Get the values 
+		const username =form.username.value;
+		const password = form.password.value;
+		//   console.log(username, password);
+
+		try {
+			const res = await fetch('/sadmin',{
+				method: 'POST',
+				body: JSON.stringify({ username , password }),
+				// actual syntax - body: JSON.stringify({ email:email , password:password }) 
+				// Since both names are the same we use simplified syntax 
+				headers: { 'Content-Type':'application/json' }
+			});
+
+			const data = await res.json();
+			if(!(data.routestat)){
+					emailError.textContent = "Invalid Credentials";
+					// passwordError.textContent = "Invalid Credentials";
+			}
+			if((data.routestat)){
+				location.assign('/sadmindash');
+			}
+		} 
+		catch (err) {
+			console.log(err);
+		}
 
 
-            <span>
-                <h2>List of Admins</h2>
-            </span>
+	});
 
-    </div>
-</a>
-
-    <a href="/listuser" style="cursor: pointer;text-decoration: none;color:black">
-    <div style="display: flex;flex-direction: column;justify-content: center;">
-
-            <span>
-                <h2>List of Users</h2>
-            </span>
-
-    </div>
-</a>
-
-    
-</div>
-<div id="Header3" style="margin-top:30px;display: flex; justify-content:flex-start;height:65px !important;">
-    <h2 style="text-align: center;margin-left:50px;">Companies' Offers</h2>
-</div>
-<div class="container2">
-    <% offergroup.forEach(offer=>{ %>
-        <div class="arrange">
-
-            <a href="/company/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
-
-                <h2 style="margin-right:4%;margin-left:4%;">
-                    <%= offer._id %>
-                </h2>
-                <h3 style="margin-right:4%;margin-left:4%;margin-top: 40px;">No of Offers: <%= offer.count %>
-                </h3>
-        </div>
-        </a>
-        <% }) %>
-</div>
-
+</script>
 
 </html>

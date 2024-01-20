@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>MITHILESH K</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<header id="header">
+    <img src="/images/logo2.png" alt="" style="height: 50px;">
+    <div class="head-element" style="width:7%;text-align: center;">Officium</div>
+    <div style="justify-content:space-between;width:80%;"></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadmindash"
+            style="color: black;text-decoration: none;">Home</a></div>
+    <div class="head-element" style="width:7%;text-align: center;"><a href="/sadminlogout"
+            style="color: black;text-decoration: none;">Logout</a></div>
+    <div class="head-element" style="width:12%;text-align: center;margin-right: 5px;">
+        <h3>Super Admin</h3>
+    </div>
+</header>
+
+<body>
+<div id="Header1" style="display: flex; margin-top:120px;justify-content:flex-start;">
+    <h1 style="text-align: center;margin-left:50px;"><%= name %></h1>
+</div>
+
+  <div class="container">
+    <% if (companydatas.length> 0) { %>
+      <% companydatas.forEach(offer=> { %>
+        <a href="/<%= offer._id %>" style="cursor: pointer;text-decoration: none;color:black">
+
+          <div class="arrange">
+            <h2>
+              <%= offer.company %>
+            </h2>
+            <h4 class="tittle"> Job Title: <%= offer.tittle %>
+            </h4>
+            <h4 class="tittle"> Type: <%= offer.type %>
+            </h4>
+            <p class="description">
+              <%= offer.description %>
+            </p>
+          </div>
+        </a>
+
+        <% }) %>
+          <% } %>
+  </div>
+</body>
+
+</html>
