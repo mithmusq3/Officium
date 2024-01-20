@@ -34,3 +34,6 @@ For Admin:
 For Super Admin:
 
       http://localhost:7000/sadmin
+
+      username: sadmin
+      password: password
