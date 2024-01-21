@@ -60,12 +60,12 @@ app.use(express.static('public'));
     const idofuser = objectid(user_id);
     Resume.findOne({userid:idofuser}).then(resume =>{
       let buffer = resume.data;
-      fs.writeFileSync('./uploads/resume.pdf', buffer);
+      // fs.writeFileSync('./uploads/resume.pdf', buffer);
         res.set({
           "Content-Type": "application/pdf",
-          "Content-Disposition": "attachment"
+          "Content-Disposition": `attachment; filename=resume.pdf`
         });
-        res.download('./uploads/resume.pdf');
+        res.send(buffer);
         res.status(200);
     }).catch(err =>{
       console.log(err);
